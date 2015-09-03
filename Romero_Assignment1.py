@@ -22,13 +22,19 @@ class Node:
 class BinaryTree:
 	def __init__(self):
 		self.root = None
+		self.keys = []
 	
 	def add(self,value,parentValue):
 		if not self.root:
 			self.root = Node(value,None)
+			self.keys.append(value)
 
 		else:
-			self.add_helper(value,parentValue,self.root)
+			if parentValue in self.keys:
+				self.keys.append(value)
+				self.add_helper(value,parentValue,self.root)
+			else:
+				print("Parent not found.")
 	
 	def add_helper(self,value,parentValue,node):
 		if node.key == parentValue:
@@ -43,7 +49,6 @@ class BinaryTree:
 				self.add_helper(value,parentValue,node.left)
 			if node.right:
 				self.add_helper(value,parentValue,node.right)
-				#FIGURE OUT HOW TO PRINT PARENT NOT FOUND
 					
 	def print_tree(self):
 		if not self.root:
@@ -108,6 +113,8 @@ def main():
 	tree.add(12,10)
 	tree.add(11,10)
 	tree.add(4,11)
+	tree.add(3,12)
+	#tree.add(99,100)
 	tree.print_tree()
 	
 
